@@ -7,9 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/u")
@@ -18,7 +16,7 @@ public class UserApiController {
 
     private final UserService userService;
 
-    @GetMapping("/user")
+    @PostMapping("/user")
     @ApiOperation(value = "Retrieve a user")
     @ApiImplicitParams({
             @ApiImplicitParam(
@@ -28,11 +26,11 @@ public class UserApiController {
                     dataType = "User"
             )
     })
-    public User getUser(UserRequestDTO userRequestDTO) {
-        if (userRequestDTO.getUserID() == null) {
+    public User getUser(@RequestBody  UserRequestDTO userRequestDTO) {
+        if (userRequestDTO.getId() == null) {
             throw new RuntimeException("Invalid UserID At UserApiController.getUser(UserRequestDTO userRequestDTO)");
         }
-        return userService.getUser(userRequestDTO.getUserID());
+        return userService.getUser(userRequestDTO.getId());
     }
 
 }

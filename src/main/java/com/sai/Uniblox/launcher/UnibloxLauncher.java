@@ -10,36 +10,37 @@ import com.sai.Uniblox.utils.AuthorizationHeaderFilter;
 import com.sai.Uniblox.utils.CouponDataLoader;
 import com.sai.Uniblox.utils.DataLoader;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ParameterBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sai.Uniblox.constants.ApiConstants.TOKEN;
+import static com.sai.Uniblox.constants.ApiConstants.API_TOKEN;
 
 @Configuration
 @EnableSwagger2
-public class UnibloxLauncher extends SpringBootServletInitializer {
+public class UnibloxLauncher {
 
     @Bean
     public WebMvcConfigurer configureCORS() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000");
             }
         };
     }
@@ -49,9 +50,9 @@ public class UnibloxLauncher extends SpringBootServletInitializer {
         List<Parameter> globalParameters = new ArrayList<>();
         globalParameters.add(new ParameterBuilder()
                 .name("Authorization")
-                .description("Bearer {TOKEN}")
-                .required(false)
-                .defaultValue(String.format("Bearer %s", TOKEN))
+                .description("Bearer {API_TOKEN}")
+                .required(true)
+                .defaultValue(String.format("Bearer %s", API_TOKEN))
                 .modelRef(new ModelRef("string"))
                 .parameterType("header")
                 .required(false)
