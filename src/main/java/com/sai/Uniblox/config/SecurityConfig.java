@@ -1,8 +1,7 @@
 package com.sai.Uniblox.config;
 
 import com.sai.Uniblox.utils.AuthorizationHeaderFilter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -10,27 +9,29 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    AuthorizationHeaderFilter jwtRequestFilter;
+    private final AuthorizationHeaderFilter authorizationHeaderFilter;
+
+    public SecurityConfig(AuthorizationHeaderFilter authorizationHeaderFilter) {
+        this.authorizationHeaderFilter = authorizationHeaderFilter;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
-                authorizeRequests().
-                antMatchers("/").permitAll().
-                antMatchers(
-                        "/api/**",
-                        "/swagger-ui.html**").permitAll().
-                anyRequest().authenticated().and().
-                exceptionHandling().and().sessionManagement()
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll() // Allow all requests
+                .and()
+                .addFilterBefore(authorizationHeaderFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -43,7 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/configuration/security",
                         "/swagger-ui.html",
+                        "/h2-console/**",
                         "/",
-                        "/webjars/**");
+                        "/webjars/**")
+                .and()
+                .httpFirewall(defaultHttpFirewall());
+    }
+
+    @Bean
+    public HttpFirewall defaultHttpFirewall() {
+        return new DefaultHttpFirewall();
     }
 }

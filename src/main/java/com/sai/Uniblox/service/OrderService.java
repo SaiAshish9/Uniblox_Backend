@@ -6,7 +6,7 @@ import com.sai.Uniblox.entity.Order;
 import com.sai.Uniblox.entity.User;
 import com.sai.Uniblox.repository.OrderRepository;
 import com.sai.Uniblox.repository.UserRepository;
-import com.sai.Uniblox.transformer.OrderMapper;
+import com.sai.Uniblox.transformer.OrderTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,8 @@ public class OrderService {
     private final UserRepository userRepository;
 
     public void placeOrder(OrderRequestDTO orderRequestDTO) {
-        orderRepository.save(OrderMapper.INSTANCE.orderDTOToOrder(orderRequestDTO));
+        Order order = OrderTransformer.buildOrder(orderRequestDTO);
+        orderRepository.save(order);
         User user = userRepository.findById(orderRequestDTO.getUserId()).orElse(null);
         if (user != null && orderRequestDTO.getCouponID() != null) {
            List<AppliedCoupon> coupons = user.getAppliedCoupons();

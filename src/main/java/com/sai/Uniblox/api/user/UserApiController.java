@@ -26,11 +26,12 @@ public class UserApiController {
                     dataType = "User"
             )
     })
-    public User getUser(@RequestBody  UserRequestDTO userRequestDTO) {
-        if (userRequestDTO.getId() == null) {
+    public User getUser(@RequestBody UserRequestDTO userRequestDTO, @RequestHeader("Authorization") String header) {
+        String userId = userRequestDTO.getId();
+        if (userId == null) {
             throw new RuntimeException("Invalid UserID At UserApiController.getUser(UserRequestDTO userRequestDTO)");
         }
-        return userService.getUser(userRequestDTO.getId());
+        return userService.getUser(userId);
     }
 
 }

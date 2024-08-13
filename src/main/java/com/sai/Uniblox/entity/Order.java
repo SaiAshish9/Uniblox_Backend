@@ -1,7 +1,10 @@
 package com.sai.Uniblox.entity;
 
 import com.sai.Uniblox.embeddable.CartItem;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +13,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "orders")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
 
     @Id

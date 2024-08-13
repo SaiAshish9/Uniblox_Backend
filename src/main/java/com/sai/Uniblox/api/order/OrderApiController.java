@@ -18,7 +18,7 @@ public class OrderApiController {
     private final OrderService orderService;
 
     @PostMapping("/order/place")
-    public ResponseEntity getProducts(@RequestBody OrderRequestDTO orderRequestDTO) {
+    public ResponseEntity placeOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         orderService.placeOrder(orderRequestDTO);
         return ResponseEntity.ok(orderRequestDTO);
     }

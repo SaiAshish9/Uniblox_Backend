@@ -6,16 +6,11 @@ import com.sai.Uniblox.entity.User;
 import com.sai.Uniblox.repository.CouponRepository;
 import com.sai.Uniblox.repository.ProductRepository;
 import com.sai.Uniblox.repository.UserRepository;
-import com.sai.Uniblox.utils.AuthorizationHeaderFilter;
 import com.sai.Uniblox.utils.CouponDataLoader;
 import com.sai.Uniblox.utils.DataLoader;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -33,17 +28,6 @@ import static com.sai.Uniblox.constants.ApiConstants.API_TOKEN;
 @Configuration
 @EnableSwagger2
 public class UnibloxLauncher {
-
-    @Bean
-    public WebMvcConfigurer configureCORS() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000");
-            }
-        };
-    }
 
     @Bean
     public Docket api() {
@@ -64,14 +48,6 @@ public class UnibloxLauncher {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.ant("/api/**"))
                 .build();
-    }
-
-    @Bean
-    public FilterRegistrationBean<AuthorizationHeaderFilter> loggingFilter() {
-        FilterRegistrationBean<AuthorizationHeaderFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AuthorizationHeaderFilter());
-        registrationBean.addUrlPatterns("/api/*");
-        return registrationBean;
     }
 
     @Bean
