@@ -3,9 +3,7 @@ package com.sai.Uniblox.api.coupon;
 import com.sai.Uniblox.entity.Coupon;
 import com.sai.Uniblox.service.CouponService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
