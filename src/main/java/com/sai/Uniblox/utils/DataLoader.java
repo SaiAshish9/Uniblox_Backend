@@ -11,7 +11,7 @@ import java.util.*;
 @UtilityClass
 public class DataLoader<T> {
 
-    private static final String PATH = "src/main/java/com/sai/Uniblox/data/";
+    private static final String PATH = System.getProperty("user.dir") + "/src/main/java/com/sai/Uniblox/data/";
 
     public static <T> List<T> readDataFromFile(String type, Class<T> clazz) {
         ObjectMapper objectMapper = new ObjectMapper();
