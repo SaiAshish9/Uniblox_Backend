@@ -8,13 +8,15 @@ import lombok.experimental.UtilityClass;
 public class OrderTransformer {
     public Order buildOrder(OrderRequestDTO orderRequestDTO) {
         Order order = new Order();
-        order.setId(orderRequestDTO.getId());
-        order.setCart(orderRequestDTO.getCart());
-        order.setAmount(orderRequestDTO.getAmount());
-        order.setTotalDiscountOnMRP(order.getTotalDiscountOnMRP());
-        order.setCouponID(orderRequestDTO.getCouponID());
-        order.setTotalAmount(orderRequestDTO.getTotalAmount());
-        order.setUserId(orderRequestDTO.getUserId());
+        if (orderRequestDTO != null) {
+            order.setId(orderRequestDTO.getId());
+            order.setCart(orderRequestDTO.getCart());
+            order.setAmount(orderRequestDTO.getAmount());
+            order.setTotalDiscountOnMRP(order.getTotalDiscountOnMRP());
+            order.setCouponID(orderRequestDTO.getCouponID());
+            order.setTotalAmount(orderRequestDTO.getTotalAmount());
+            order.setUserId(orderRequestDTO.getUserId());
+        }
         return order;
     }
 }
