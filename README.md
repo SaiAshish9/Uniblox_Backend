@@ -15,7 +15,7 @@ java -jar build/libs/Uniblox-0.0.1-SNAPSHOT.jar
 
 Alternatively, start the server using the RUN action in IntelliJ IDEA.
 
-Project can be accessible at http://localhost:8080/
+Project can be accessible at http://localhost:8080
 
 ```
 
