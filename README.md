@@ -1,3 +1,9 @@
+## Loom Recorded Video:
+
+
+https://www.loom.com/share/21c9fa55adb144b1bd41c9b3178a6b28?sid=9acf3b0e-c626-4e1d-a2ab-9a86256a1a93
+
+
 ## Installation Steps
 
 ```
@@ -104,9 +110,6 @@ Navigate to the Application tab using Chrome Developer Tools.
 
 <img width="1440" alt="Screenshot 2024-08-14 at 4 17 01 AM" src="https://github.com/user-attachments/assets/9e0a5e65-5f66-403a-90a1-4c6fe39cf78f">
 
-## Loom Recorded Video:
-
-https://www.loom.com/share/21c9fa55adb144b1bd41c9b3178a6b28?sid=9acf3b0e-c626-4e1d-a2ab-9a86256a1a93
 
 ## Frontend Project Link:
 
