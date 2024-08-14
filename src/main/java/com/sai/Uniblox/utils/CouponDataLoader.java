@@ -33,7 +33,7 @@ public class CouponDataLoader {
             } else {
                 coupon.setId(coupons.get(i - 1));
             }
-            coupon.setDiscountPercentage(20.0);
+            coupon.setDiscountPercentage(10.0);
             coupon.setMaxUses(BigInteger.valueOf(50));
             coupon.setCurrentUses(BigInteger.valueOf(5));
             coupon.setExpirationDate("2024-06-30");
