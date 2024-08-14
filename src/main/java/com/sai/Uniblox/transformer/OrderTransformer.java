@@ -12,7 +12,7 @@ public class OrderTransformer {
             order.setId(orderRequestDTO.getId());
             order.setCart(orderRequestDTO.getCart());
             order.setAmount(orderRequestDTO.getAmount());
-            order.setTotalDiscountOnMRP(order.getTotalDiscountOnMRP());
+            order.setTotalDiscountOnMRP(orderRequestDTO.getTotalDiscountOnMRP());
             order.setCouponID(orderRequestDTO.getCouponID());
             order.setTotalAmount(orderRequestDTO.getTotalAmount());
             order.setUserId(orderRequestDTO.getUserId());
